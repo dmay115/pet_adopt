@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <title>Pet Adoption</title>
+    </head>
+
+    <body>
+        <div class="container mt-5">
+            <h1 class="display-4">Pets!</h1>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th>Species</th>
+                        <th>Photo</th>
+                        <th>Age</th>
+                        <th>Extra Info</th>
+                        <th>Available?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pet in pets %}
+                    <tr>
+                        <td>{{pet.name}}</td>
+                        <td>
+                            <a
+                                href="/pet/{{pet.id}}/edit"
+                                class="btn btn-success btn-sm"
+                                >Edit</a
+                            >
+                        </td>
+                        <td>{{pet.species}}</td>
+                        {% if pet.photo_url %}
+                        <td>
+                            <img
+                                src="{{pet.photo_url}}"
+                                alt="Pet Photo"
+                                class="img-thumbnail"
+                                style="max-width: 100px"
+                            />
+                        </td>
+                        {% else %}
+                        <td class="text-danger">NO PHOTO</td>
+                        {% endif %} {% if pet.age %}
+                        <td>{{pet.age}}</td>
+                        {% else %}
+                        <td class="text-danger">UNKNOWN</td>
+                        {% endif %} {% if pet.notes %}
+                        <td>{{pet.notes}}</td>
+                        {% else %}
+                        <td class="text-danger">N/A</td>
+                        {% endif %} {% if pet.available %}
+                        <td>
+                            <span class="badge badge-success">Available</span>
+                        </td>
+                        {% else %}
+                        <td>
+                            <span class="badge badge-danger">Unavailable</span>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="/pet/add" class="btn btn-success">Add New Pet</a>
+        </div>
+    </body>
+</html>
